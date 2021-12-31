@@ -8,6 +8,7 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk, Image
+import threading
 
 root_path = os.getcwd()
 
@@ -81,10 +82,12 @@ def gui():
   panel.grid(column=1, row=4)
 
   def send_mensagem():
-    inputValue=textBox.get("1.0","end-1c")    
+    textBox_inputValue=textBox.get("1.0","end-1c")
     checkbox_value = var1.get()
 
-    automacao(inputValue, checkbox_value)
+    # IMPLEMENTAR THREADS
+    threading.Thread(target=automacao, args=(textBox_inputValue, checkbox_value)).start()
+    #automacao(inputValue, checkbox_value)
   
   # BOTÃO SEND FILE
   button_send_msg = Button(root, text='ENVIAR', command=send_mensagem, bg='#54EF6F', padx=5, pady=5, font=10)
@@ -94,6 +97,7 @@ def gui():
   root.mainloop()
 
 def automacao(msg, checkbox_value):
+  root.update()
   mensagem = msg
   
   # CARREGA A PLANILHA COM CONTATOS
@@ -133,7 +137,6 @@ def automacao(msg, checkbox_value):
       pass
 
   planilha_contatos()
-  
 
 #iniciar()
 gui()
