@@ -3,6 +3,9 @@ from selenium.webdriver.common.keys import Keys
 from urllib.parse import quote
 import time
 import pandas as pd
+import os
+
+root_path = os.getcwd()
 
 driver = webdriver.Chrome()
 
@@ -32,6 +35,17 @@ def whatsapp(nome, numero):
   time.sleep(4)
   enviar_msg = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
   enviar_msg.send_keys(Keys.ENTER)
+  time.sleep(2)
+  enviar_img()
+  
+def enviar_img():
+  time.sleep(4)
+  driver.find_element_by_css_selector("span[data-icon='clip']").click()
+  attach = driver.find_element_by_css_selector("input[type='file']")
+  attach.send_keys(f'{root_path}/midia.png')
+  time.sleep(1)
+  send = driver.find_element_by_xpath('//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[1]/div[3]/div/div/div[2]/div[1]/div[2]')
+  send.send_keys(Keys.ENTER)
   time.sleep(2)
 
 iniciar()
