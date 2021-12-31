@@ -131,3 +131,6 @@ dmypy.json
 # webdriver selenium
 chromedriver.exe
 geckodriver.exe
+
+# lista de contatos
+contatos.xlsx
