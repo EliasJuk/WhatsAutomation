@@ -1,9 +1,12 @@
 import os
 from tkinter import *
+import PIL
+from PIL import ImageTk, Image
 
 class Aplication:
   def __init__(self):
     self.root = Tk()
+    self.vars()
     self.palette()
     self.window()
     self.frames()
@@ -11,11 +14,18 @@ class Aplication:
     self.textbox()
     self.buttons()
     self.checkbox()
+    self.panel()
     self.automation()
     self.root.mainloop()
 
+  def vars(self):
+    self.root_path = os.getcwd()
+
+    self.image_path = Image.open('midia.png')
+    self.imagem_defaut = ImageTk.PhotoImage(self.image_path)
+
   def palette(self):
-    self.text_color     = '#D9D9D9' 
+    self.text_color     = '#D9D9D9'
     self.textbox_color  = '#d4d4d4'
     self.buttons_color  = '#d4d4d4'
     self.checkbox_color = '#d4d4d4'
@@ -60,8 +70,13 @@ class Aplication:
     self.checkbox_1 = Checkbutton(self.frame_2, text='Imagem', bg=self.checkbox_color, onvalue=1, offvalue=0)
     self.checkbox_1.place(relx=.50, rely=.3, relheight=.4)
 
+  def panel(self):
+    self.panel_1 = Label(self.frame_3, image=self.imagem_defaut, bg='#d4d4d4', state= DISABLED, width=200, height=200)
+    self.panel_1.place(relx=.23, rely=.08)
+
   def automation(self):
-    self.root_path = os.getcwd()
+    pass
+    
 
 
 if __name__ == '__main__':
