@@ -5,6 +5,10 @@ import PIL
 from PIL import ImageTk, Image
 from tkinter import filedialog
 import time
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import threading
 
 class Aplication:
   def __init__(self):
@@ -23,7 +27,10 @@ class Aplication:
     self.checkbox()
     self.panel()
     self.progressbar()
-    self.automation()
+
+    self.automatizar = Automation()
+    threading.Thread(target=self.automatizar.run).start()
+    
     self.root.mainloop()
 
   def vars(self):
@@ -53,6 +60,7 @@ class Aplication:
     self.root.maxsize(width=600, height=800)
     self.root.minsize(width=300, height=500)
     self.root.configure(background=self.bg_color)
+    self.root.wm_attributes("-topmost", True) #Keep first plan
 
   def frames(self):
     # TEXTBOX
@@ -83,7 +91,7 @@ class Aplication:
     self.button_1 = Button(self.frame_2, text='Open file', command=self.file_open, bg=self.buttons_color, state=DISABLED)
     self.button_1.place(relx=.26, rely=.16, relwidth=.2, relheight=.7)
 
-    self.button_2 = Button(self.frame_4, text='ENVIAR')
+    self.button_2 = Button(self.frame_4, text='ENVIAR', command=self.step)
     self.button_2.place(relx=.335, rely=.12, relwidth=.3, relheight=.3)
 
   def checkbox(self):
@@ -122,11 +130,18 @@ class Aplication:
       print('Selecione uma imagem')
     except PIL.UnidentifiedImageError:
       print('Formato invalido')
+  
+  def step(self):
+      self.progressbar_1['value'] += 10    
 
+class Automation():
+  def __init__(self):
+    print('webdriver')
 
-  def automation(self):
-    pass    
-
+  def run(self):
+    self.driver = webdriver.Chrome()
+    self.driver.get('https://web.whatsapp.com/')
+    
 
 if __name__ == '__main__':
   app = Aplication()
