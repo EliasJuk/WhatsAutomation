@@ -10,9 +10,46 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import threading
 
-class Aplication:
+# CLASSE PARA ENVIO DE MENSAGENS
+class Automation():
+  def __init__(self):    
+    print('Iniciar')
+
+  def run(self):    
+    self.driver = webdriver.Chrome()
+    self.driver.get('https://web.whatsapp.com/')
+    time.sleep(10)
+
+    self.planilha_contatos()
+
+  # CARREGA A PLANILHA COM CONTATOS
+  def planilha_contatos(self):
+    self.tabela = pd.read_excel('contatos.xlsx', sheet_name='contatos')
+    self.buscar_contatos(self.tabela)
+
+  # PEGA NOME E CONTATO NA PLANILHA
+  def buscar_contatos(self, tabela):
+    self.maxcontatos = len(tabela.index)  
+    for x in range(self.maxcontatos):
+      print(tabela.Nome[x], tabela.Numero[x])
+      self.whatsapp(tabela.Nome[x], tabela.Numero[x])
+
+  def whatsapp(self, nome, numero):
+    # ENVIA MENSAGEM DE TEXTO
+    texto = 'Texto'
+    link = f"https://web.whatsapp.com/send?phone={numero}&text={texto}"
+    self.driver.get(link)
+    time.sleep(4)
+    enviar_msg = self.driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
+    enviar_msg.send_keys(Keys.ENTER)
+    time.sleep(2)
+
+
+
+class Aplication():
   def __init__(self):
     self.root = Tk()
+    self.automatizar = Automation()
 
     #FUNÇÕES
     self.vars()
@@ -26,12 +63,7 @@ class Aplication:
     self.buttons()
     self.checkbox()
     self.panel()
-    self.progressbar()
-  
-    self.automatizar = Automation()
-    threading.Thread(target=self.automatizar.run).start()
-    #self.automatizar.run
-    
+    self.progressbar()  
     self.root.mainloop()
 
   def vars(self):
@@ -92,7 +124,7 @@ class Aplication:
     self.button_1 = Button(self.frame_2, text='Open file', command=self.file_open, bg=self.buttons_color, state=DISABLED)
     self.button_1.place(relx=.26, rely=.16, relwidth=.2, relheight=.7)
 
-    self.button_2 = Button(self.frame_4, text='ENVIAR', command=self.step)
+    self.button_2 = Button(self.frame_4, text='ENVIAR', command=self.start)
     self.button_2.place(relx=.335, rely=.12, relwidth=.3, relheight=.3)
 
   def checkbox(self):
@@ -133,41 +165,10 @@ class Aplication:
       print('Formato invalido')
   
   def step(self):
-      self.progressbar_1['value'] += 10    
-
-
-# CLASSE PARA ENVIO DE MENSAGENS
-class Automation():
-  def __init__(self):    
-    print('')
-
-  def run(self):    
-    self.driver = webdriver.Chrome()
-    self.driver.get('https://web.whatsapp.com/')
-    self.planilha_contatos()
-
-    # CARREGA A PLANILHA COM CONTATOS
-  def planilha_contatos(self):
-    self.tabela = pd.read_excel('contatos.xlsx', sheet_name='contatos')
-    self.buscar_contatos(self.tabela)
-
-  # PEGA NOME E CONTATO NA PLANILHA
-  def buscar_contatos(self, tabela):
-    self.maxcontatos = len(tabela.index)  
-    for x in range(self.maxcontatos):
-      print(tabela.Nome[x], tabela.Numero[x])
-
-      #self.whatsapp(tabela.Nome[x], tabela.Numero[x])
-
-  def whatsapp(self, nome, numero):
-    # ENVIA MENSAGEM DE TEXTO
-    self.texto = 'Texto'
-    self.link = f"https://web.whatsapp.com/send?phone={numero}&text={self.texto}"
-    self.driver.get(self.link)
-    time.sleep(4)
-    enviar_msg = self.driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
-    enviar_msg.send_keys(Keys.ENTER)
-    time.sleep(2)
+      self.progressbar_1['value'] += 10
+  
+  def start(self):
+    threading.Thread(target=self.automatizar.run).start()
 
 
 if __name__ == '__main__':
