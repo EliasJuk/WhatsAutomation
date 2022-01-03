@@ -23,5 +23,5 @@
 WhatsAutomation é uma aplicação para envio de mensagens e imagens automática a partir de uma planilha de contato
 
 <h1 align="center">
-    <img alt="interface" title="#interface" src="readme/interface.png"/>
+    <img alt="interface" title="#interface" src="readme/screenshot.png"/>
 </h1>
