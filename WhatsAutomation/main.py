@@ -9,17 +9,19 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import threading
+from tkinter import messagebox
 
 # CLASSE PARA ENVIO DE MENSAGENS
 class Automation():
   def __init__(self):    
     print('Iniciar')
 
-  def run(self):    
+  def run(self, input_texto):    
     self.driver = webdriver.Chrome()
     self.driver.get('https://web.whatsapp.com/')
     time.sleep(10)
-
+    self.texto = input_texto
+    print(self.texto)
     self.planilha_contatos()
 
   # CARREGA A PLANILHA COM CONTATOS
@@ -32,11 +34,11 @@ class Automation():
     self.maxcontatos = len(tabela.index)  
     for x in range(self.maxcontatos):
       print(tabela.Nome[x], tabela.Numero[x])
-      self.whatsapp(tabela.Nome[x], tabela.Numero[x])
+      #self.whatsapp(tabela.Nome[x], tabela.Numero[x])      
 
   def whatsapp(self, nome, numero):
     # ENVIA MENSAGEM DE TEXTO
-    texto = 'Texto'
+    texto = self.texto
     link = f"https://web.whatsapp.com/send?phone={numero}&text={texto}"
     self.driver.get(link)
     time.sleep(4)
@@ -168,7 +170,10 @@ class Aplication():
       self.progressbar_1['value'] += 10
   
   def start(self):
-    threading.Thread(target=self.automatizar.run).start()
+    messagebox.showinfo("Info","Abra o WahtsApp você tem 10s para escanear o codigo")
+
+    textbox_1_Value = self.textbox_1.get("1.0","end-1c")
+    threading.Thread(target=self.automatizar.run, args=(textbox_1_Value,)).start()
 
 
 if __name__ == '__main__':
