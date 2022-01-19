@@ -34,7 +34,7 @@ class Automation():
     self.maxcontatos = len(tabela.index)  
     for x in range(self.maxcontatos):
       print(tabela.Nome[x], tabela.Numero[x])
-      #self.whatsapp(tabela.Nome[x], tabela.Numero[x])      
+      self.whatsapp(tabela.Nome[x], tabela.Numero[x])      
 
   def whatsapp(self, nome, numero):
     # ENVIA MENSAGEM DE TEXTO
@@ -45,7 +45,6 @@ class Automation():
     enviar_msg = self.driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
     enviar_msg.send_keys(Keys.ENTER)
     time.sleep(2)
-
 
 
 class Aplication():
