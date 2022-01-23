@@ -4,7 +4,7 @@ IF EXIST "%var%\venv" (
 	cd venv/Scripts/
 	call activate.bat
 	cd ../../
-  call python app.py
+  call python main.py
 
 ) ELSE (
   call python -m venv venv
@@ -13,5 +13,5 @@ IF EXIST "%var%\venv" (
 	cd ../../
 	call python -m pip install --upgrade pip
 	pip install -r "%var%\requirements.txt"
-  call python app.py
+  call python main.py
 )
