@@ -16,11 +16,14 @@ class Automation():
   def __init__(self):    
     print('Iniciar')
 
-  def run(self, input_texto):    
+  def run(self, input_texto, checkBox_value, path):
+    self.texto = input_texto
+    self.ckb_value = checkBox_value
+    self.image_path = path
+
     self.driver = webdriver.Chrome()
     self.driver.get('https://web.whatsapp.com/')
     time.sleep(10)
-    self.texto = input_texto
     print(self.texto)
     self.planilha_contatos()
 
@@ -45,6 +48,21 @@ class Automation():
     enviar_msg = self.driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
     enviar_msg.send_keys(Keys.ENTER)
     time.sleep(2)
+    self.enviar_img()
+
+  def enviar_img(self):
+    if self.ckb_value == 1:
+      time.sleep(4)
+      self.driver.find_element_by_css_selector("span[data-icon='clip']").click()
+      attach = self.driver.find_element_by_css_selector("input[type='file']")
+
+      attach.send_keys(self.image_path)
+      time.sleep(1)
+      send = self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[1]/div[3]/div/div/div[2]/div[1]/div[2]')
+      send.send_keys(Keys.ENTER)
+      time.sleep(2)
+    else:
+      pass
 
 
 class Aplication():
@@ -65,6 +83,8 @@ class Aplication():
     self.checkbox()
     self.panel()
     self.progressbar()  
+
+    # LOOP
     self.root.mainloop()
 
   def vars(self):
@@ -157,8 +177,8 @@ class Aplication():
 
   def file_open(self):
     try:
-      path=filedialog.askopenfilename(initialdir='C://')
-      self.new_image = ImageTk.PhotoImage(Image.open(path))
+      self.path=filedialog.askopenfilename(initialdir='C://')
+      self.new_image = ImageTk.PhotoImage(Image.open(self.path))
       self.panel_1.configure(image=self.new_image)      
     except AttributeError:
       print('Selecione uma imagem')
@@ -171,8 +191,11 @@ class Aplication():
   def start(self):
     messagebox.showinfo("Info","Abra o WahtsApp você tem 10s para escanear o codigo")
 
+    
     textbox_1_Value = self.textbox_1.get("1.0","end-1c")
-    threading.Thread(target=self.automatizar.run, args=(textbox_1_Value,)).start()
+    checkBox_value = self.var_ckb1.get()
+    
+    threading.Thread(target=self.automatizar.run, args=(textbox_1_Value, checkBox_value, self.path)).start()
 
 
 if __name__ == '__main__':
