@@ -39,8 +39,8 @@ class Automation():
       print(tabela.Nome[x], tabela.Numero[x])
       
       #===========================
-      self.app = Aplication()
-      self.app.progressbar_1['value'] += 10
+      app = Aplication()
+      app.step(10)
       #===========================
 
       self.whatsapp(tabela.Nome[x], tabela.Numero[x])      
