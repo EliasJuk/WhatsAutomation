@@ -13,8 +13,8 @@ from tkinter import messagebox
 
 # CLASSE PARA ENVIO DE MENSAGENS
 class Automation():
-  def __init__(self):    
-    print('Iniciar')
+  def __init__(self):
+    print('Iniciando...')
 
   def run(self, input_texto, checkBox_value, path):
     self.texto = input_texto
@@ -31,12 +31,18 @@ class Automation():
   def planilha_contatos(self):
     self.tabela = pd.read_excel('contatos.xlsx', sheet_name='contatos')
     self.buscar_contatos(self.tabela)
-
+  
   # PEGA NOME E CONTATO NA PLANILHA
   def buscar_contatos(self, tabela):
-    self.maxcontatos = len(tabela.index)  
+    self.maxcontatos = len(tabela.index)
     for x in range(self.maxcontatos):
       print(tabela.Nome[x], tabela.Numero[x])
+      
+      #===========================
+      self.app = Aplication()
+      self.app.progressbar_1['value'] += 10
+      #===========================
+
       self.whatsapp(tabela.Nome[x], tabela.Numero[x])      
 
   def whatsapp(self, nome, numero):
@@ -82,7 +88,8 @@ class Aplication():
     self.buttons()
     self.checkbox()
     self.panel()
-    self.progressbar()  
+    self.progressbar()
+    self.step(1)
 
     # LOOP
     self.root.mainloop()
@@ -185,12 +192,11 @@ class Aplication():
     except PIL.UnidentifiedImageError:
       print('Formato invalido')
   
-  def step(self):
-      self.progressbar_1['value'] += 10
+  def step(self, valor):
+    self.progressbar_1['value'] += valor
   
   def start(self):
     messagebox.showinfo("Info","Abra o WahtsApp você tem 10s para escanear o codigo")
-
     
     textbox_1_Value = self.textbox_1.get("1.0","end-1c")
     checkBox_value = self.var_ckb1.get()
@@ -198,7 +204,7 @@ class Aplication():
     if checkBox_value == 1:
       threading.Thread(target=self.automatizar.run, args=(textbox_1_Value, checkBox_value, self.path)).start()
     else:
-      self.path = ''
+      self.path = ' '
       threading.Thread(target=self.automatizar.run, args=(textbox_1_Value, checkBox_value, self.path)).start()
 
 
