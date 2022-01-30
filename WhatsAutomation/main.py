@@ -195,7 +195,11 @@ class Aplication():
     textbox_1_Value = self.textbox_1.get("1.0","end-1c")
     checkBox_value = self.var_ckb1.get()
     
-    threading.Thread(target=self.automatizar.run, args=(textbox_1_Value, checkBox_value, self.path)).start()
+    if checkBox_value == 1:
+      threading.Thread(target=self.automatizar.run, args=(textbox_1_Value, checkBox_value, self.path)).start()
+    else:
+      self.path = ''
+      threading.Thread(target=self.automatizar.run, args=(textbox_1_Value, checkBox_value, self.path)).start()
 
 
 if __name__ == '__main__':
