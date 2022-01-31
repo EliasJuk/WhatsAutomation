@@ -41,6 +41,7 @@ WhatsAutomation é uma aplicação para envio de mensagens e imagens automática
     - Suporte ao Google Chrome
 
   - Versão: [v0.2](https://github.com/EliasJuk/WhatsAutomation/tree/main/versions/v0.2)
+    - Download Build: [Mega](https://mega.nz/file/qa4yRDKa#X85Kmzk1JaytdRRj-uMKllMtwz8SFKxBnCnrOs-x9HE)
     - Refatoração do código
     - Dark Theme
 ---
@@ -75,7 +76,7 @@ $ pip install -r requirements.txt
 # Run Project
 $ Python main.py
 ```
-## :gear: Como buildar o codigo fonte
+### :gear: Como buildar o codigo fonte
 
 ```bash
 # Baixar a biblioteca pyinstaller
