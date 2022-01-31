@@ -47,6 +47,12 @@ WhatsAutomation é uma aplicação para envio de mensagens e imagens automática
 ---
 
 ## ❔ How To Use
+### :gear: Build
+  - Baixe a versão build
+  - Descompacte o arquivo
+  - Baixe a versão do [chromedriver](https://chromedriver.chromium.org/downloads) compativel com a versão do chrome em sua maquina e coloque na pasta principal do projeto
+
+### :page_facing_up: Source code
 
 Para clonar e rodar a aplicação, você precisará do [Git](https://git-scm.com/) e [Python](https://www.python.org/) instalados em seu computador
 - Clone o repositorio do projeto em sua maquina
@@ -76,7 +82,7 @@ $ pip install -r requirements.txt
 # Run Project
 $ Python main.py
 ```
-### :gear: Como buildar o codigo fonte
+## :gear: Como buildar o codigo fonte
 
 ```bash
 # Baixar a biblioteca pyinstaller
