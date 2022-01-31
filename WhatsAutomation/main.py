@@ -37,12 +37,6 @@ class Automation():
     self.maxcontatos = len(tabela.index)
     for x in range(self.maxcontatos):
       print(tabela.Nome[x], tabela.Numero[x])
-      
-      #===========================
-      app = Aplication()
-      app.step(10)
-      #===========================
-
       self.whatsapp(tabela.Nome[x], tabela.Numero[x])      
 
   def whatsapp(self, nome, numero):
@@ -88,8 +82,6 @@ class Aplication():
     self.buttons()
     self.checkbox()
     self.panel()
-    self.progressbar()
-    self.step(1)
 
     # LOOP
     self.root.mainloop()
@@ -134,11 +126,11 @@ class Aplication():
 
     # IMG
     self.frame_3 = Frame(self.root, bg=self.frame_color)
-    self.frame_3.place(relx=.02, rely=.482, relwidth=.96, relheight=.35)
+    self.frame_3.place(relx=.02, rely=.482, relwidth=.96, relheight=.40)
 
     # SEND IMAGE
     self.frame_4 = Frame(self.root, bg=self.frame_color)
-    self.frame_4.place(relx=.02, rely=.845, relwidth=.96, relheight=.14)
+    self.frame_4.place(relx=.02, rely=.895, relwidth=.96, relheight=.09)
 
   def labels(self):
     self.label_1 = Label(self.frame_1, text='Mensagem a ser enviada:', bg=self.label_color, fg=self.text_color)
@@ -153,8 +145,8 @@ class Aplication():
     self.button_1.place(relx=.26, rely=.16, relwidth=.2, relheight=.7)
 
     self.button_2 = Button(self.frame_4, text='ENVIAR', command=self.start)
-    self.button_2.place(relx=.335, rely=.12, relwidth=.3, relheight=.3)
-
+    self.button_2.place(relx=.338, rely=.30, relwidth=.3, relheight=.4)
+  
   def checkbox(self):
     self.checkbox_1 = Checkbutton(self.frame_2, text='Imagem',onvalue=1, offvalue=0, variable=self.var_ckb1, command=self.func_checkbox1, bg=self.checkbox_color, activebackground=self.checkbox_color, activeforeground=self.text_color)
     self.checkbox_1['fg'] = '#D9D9D9'
@@ -163,11 +155,6 @@ class Aplication():
   def panel(self):
     self.panel_1 = Label(self.frame_3, image=self.imagem_defaut, bg='#45475b', state= DISABLED, width=200, height=200)
     self.panel_1.place(relx=.24, rely=.08, relwidth=.5, relheight=.84)
-
-  def progressbar(self):
-    self.progressbar_1 = ttk.Progressbar(self.frame_4, orient=HORIZONTAL, length=300, mode='determinate')
-    self.progressbar_1.place(relx=.1, rely=.6)
-
 
   def func_checkbox1(self):
     if (self.var_ckb1.get() == 1):
@@ -191,9 +178,6 @@ class Aplication():
       print('Selecione uma imagem')
     except PIL.UnidentifiedImageError:
       print('Formato invalido')
-  
-  def step(self, valor):
-    self.progressbar_1['value'] += valor
   
   def start(self):
     messagebox.showinfo("Info","Abra o WahtsApp você tem 10s para escanear o codigo")
